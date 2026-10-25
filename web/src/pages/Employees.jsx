@@ -10,6 +10,7 @@ const Employees = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    password: "",
     role: "employee",
     department: "",
     designation: "",
@@ -50,12 +51,13 @@ const Employees = () => {
         department: form.department || undefined,
       });
       setMessage(
-        `Created! Temp password: ${res.data.temporaryPassword} (share with employee)`
+        `Created! ${form.password ? "Password" : "Temp password"}: ${res.data.temporaryPassword} (share with employee)`
       );
       setShowForm(false);
       setForm({
         name: "",
         email: "",
+        password: "",
         role: "employee",
         department: "",
         designation: "",
@@ -101,6 +103,13 @@ const Employees = () => {
                 <label>Email *</label>
                 <input className="form-control" type="email" required value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              </div>
+              <div className="form-group">
+                <label>Password (optional)</label>
+                <input className="form-control" type="password" minLength={6}
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  placeholder="Leave blank to generate one" />
               </div>
               <div className="form-group">
                 <label>Role</label>
